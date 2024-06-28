@@ -51,6 +51,11 @@ const CompanySchema = new mongoose.Schema({
 
 })
 
+CompanySchema.index({ name: 1 });
+
+CompanySchema.index({ country: 1 });
+CompanySchema.index({ "productPortfolio.productName": 1 });
+
 let keyContactPersonSchema = Joi.object({
     name: Joi.string().min(1).required(),
     designation: Joi.string().min(1).required(),
