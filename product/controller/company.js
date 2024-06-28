@@ -39,7 +39,7 @@ companyRouter.getCompanyDetails = async (req, res) => {
             let order = sortOrder == 'asc' ? 1 : -1;
             let obj = {};
             obj[sortKey] = order;
-            pipeline.push({'$sort':obj});
+            pipeline.push({ '$sort': obj });
         }
 
         const pagination = [{
@@ -50,9 +50,6 @@ companyRouter.getCompanyDetails = async (req, res) => {
         }]
 
         pipeline.push(...pagination);
-
-
-        console.log("----", pipeline);
 
         let companyDetails = await Company.aggregate(pipeline);
 
