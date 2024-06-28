@@ -33,6 +33,19 @@ companyRouter.getCompanyDetails = async (req, res) => {
 
         let pipeline = [];
 
+        if ((reqQuery.searchField && reqQuery.searchField.length) && (reqQuery.searchString && reqQuery.searchString.length)) {
+            let obj = {}
+            const searchField = reqQuery.searchField
+            if (searchField == 'productName') {
+                obj = { 'productPortfolio.productName': { $regex: reqQuery.searchString, $options: 'i' } }
+            } else {
+                obj = {};
+                obj[searchField] = { '$regex': reqQuery.searchString, $options: 'i' }
+            }
+
+            pipeline.push({ '$match': obj })
+        }
+
         if (reqQuery.sortKey) {
             let sortKey = reqQuery.sortKey
             let sortOrder = reqQuery.sortOrder;
