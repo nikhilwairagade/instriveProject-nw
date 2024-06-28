@@ -1,4 +1,7 @@
 const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
 require('dotenv').config();
 const bodyParser = require('body-parser');
 
@@ -7,6 +10,10 @@ const connectToDB = require('./utils/database');
 
 
 const app = express();
+app.use(cors());
+app.use(helmet());
+app.use(morgan('combined'));
+
 app.use(bodyParser());
 
 connectToDB();
